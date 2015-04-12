@@ -8,9 +8,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -21,6 +26,31 @@ public class MovieListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestData();
+    }
+
+    private class MovieAdapter extends ArrayAdapter<Movie>{
+        public MovieAdapter(List<Movie> movies){
+            super(getActivity(), 0, movies);
+        }
+
+        @Override
+        public  View getView(int position, View convertView, ViewGroup parent){
+            if(convertView == null){
+                convertView = getActivity().getLayoutInflater()
+                        .inflate(R.layout.list_item_movies, null);
+            }
+            Movie movie = getItem(position);
+
+            ImageView imageView = (ImageView) convertView.findViewById(R.id.imageItem);
+            Picasso.with(getActivity()).load(movie.getCoverImage())
+                    .resize(50, 50).centerCrop().into(imageView);
+
+            TextView textView = (TextView) convertView.findViewById(R.id.textItem);
+            textView.setText(movie.getTitleLong());
+
+            return convertView;
+
+        }
     }
 
     public void onListItemClick(ListView l, View v, int position, long id){
@@ -62,9 +92,8 @@ public class MovieListFragment extends ListFragment {
         @Override
         protected void onPostExecute(String json) {
             List<Movie> movies = HttpManager.parseMoviesFeed(json);
-            ArrayAdapter<Movie> movieArrayAdapter =
-                    new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, movies);
-            setListAdapter(movieArrayAdapter);
+            MovieAdapter movieAdapter = new MovieAdapter(movies);
+            setListAdapter(movieAdapter);
 
         }
     }
