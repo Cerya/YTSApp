@@ -1,7 +1,5 @@
 package com.caberio.jorick.ytsapp;
 
-import android.util.Log;
-
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -47,9 +45,7 @@ public class HttpManager {
                 List<Torrent> torrents = new ArrayList<>();
                 JSONObject movieObj = movies.getJSONObject(i);
                 JSONArray torrentArr = movieObj.getJSONArray("torrents");
-//                Log.d("TORRENTS", torrentArr.toString());
                 for(int j=0; j<torrentArr.length(); j++){
-                    Log.d("TORRENTS", "torrent"+j+" : "+ torrentArr.getJSONObject(j).getString("size"));
                     Torrent torrent = new Torrent();
                     JSONObject torrentObj = torrentArr.getJSONObject(j);
                     torrent.setQuality(torrentObj.getString("quality"));
@@ -58,7 +54,6 @@ public class HttpManager {
                     torrent.setSize(torrentObj.getString("size"));
                     torrents.add(torrent);
                 }
-
 
                 movie.setId(movieObj.getInt("id"));
                 movie.setTitle(movieObj.getString("title"));
