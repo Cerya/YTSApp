@@ -1,14 +1,14 @@
 package com.caberio.jorick.ytsapp;
 
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,24 +16,21 @@ import java.util.List;
 public class HttpManager {
 
     public static String getMoviesFeed(String uri){
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader bufferedReader;
-        String line;
+        String result = null;
 
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(uri)
+                .build();
+
+        Response response;
         try {
-            URL url = new URL(uri);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-            while((line=bufferedReader.readLine())!=null){
-                stringBuilder.append(line.concat("\n"));
-            }
+            response = client.newCall(request).execute();
+            result = response.body().string();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return stringBuilder.toString();
-
+        return result;
     }
 
     public static List<Movie> parseMoviesFeed(String json){
