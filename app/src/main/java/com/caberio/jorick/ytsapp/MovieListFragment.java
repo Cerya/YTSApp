@@ -44,7 +44,7 @@ public class MovieListFragment extends ListFragment {
 
             ImageView imageView = (ImageView) convertView.findViewById(R.id.imageItem);
             Picasso.with(getActivity()).load(movie.getCoverImage())
-                    .resize(50, 50).centerCrop().into(imageView);
+                    .resize(70, 70).centerCrop().into(imageView);
 
             TextView textView = (TextView) convertView.findViewById(R.id.textItem);
             textView.setText(movie.getTitleLong());
