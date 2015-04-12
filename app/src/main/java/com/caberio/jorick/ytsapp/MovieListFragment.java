@@ -38,7 +38,7 @@ public class MovieListFragment extends ListFragment {
         public  View getView(int position, View convertView, ViewGroup parent){
             if(convertView == null){
                 convertView = getActivity().getLayoutInflater()
-                        .inflate(R.layout.list_item_movies, null);
+                        .inflate(R.layout.list_item_movies, parent, false);
             }
             Movie movie = getItem(position);
 
