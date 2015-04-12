@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item type="id" name="movie_quality_720" />
+    <item type="id" name="movie_quality_720_size" />
+    <item type="id" name="movie_quality_720_seeds" />
+    <item type="id" name="movie_quality_720_peers" />
+    <item type="id" name="movie_quality_1080" />
+    <item type="id" name="movie_quality_1080_size" />
+    <item type="id" name="movie_quality_1080_seeds" />
+    <item type="id" name="movie_quality_1080_peers" />
     <item type="id" name="viewPager" />
+
 </resources>

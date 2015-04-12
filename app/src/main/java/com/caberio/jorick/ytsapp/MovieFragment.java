@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -39,16 +40,39 @@ public class MovieFragment extends Fragment {
 
         for(Torrent torrent: torrents){
 
-            if (torrent.getQuality().equals("720p")) {
-                torrentDetails(view, torrent, R.id.movie_quality_720, R.id.movie_quality_720_size,
-                        R.id.movie_quality_720_seeds, R.id.movie_quality_720_peers);
+            LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.parentLinearLayout);
+            int indexOffset = 0;
+
+            if (torrent.getQuality().equals("720p")){
+
+                torrentDetails(linearLayout, R.id.movie_quality_720,
+                        "Quality: "+torrent.getQuality(), ++indexOffset);
+
+                torrentDetails(linearLayout, R.id.movie_quality_720_size,
+                        "Size: "+torrent.getSize(), ++indexOffset);
+
+                torrentDetails(linearLayout, R.id.movie_quality_720_seeds,
+                        "Seeds: "+torrent.getSeeds(), ++indexOffset);
+
+                torrentDetails(linearLayout, R.id.movie_quality_720_peers,
+                        "Peers: "+torrent.getPeers(), ++indexOffset);
+
+            }
+            if(torrent.getQuality().equals("1080p")){
+
+                torrentDetails(linearLayout, R.id.movie_quality_1080,
+                        "Quality: "+torrent.getQuality(), ++indexOffset);
+
+                torrentDetails(linearLayout, R.id.movie_quality_1080_size,
+                        "Size: "+torrent.getSize(), ++indexOffset);
+
+                torrentDetails(linearLayout, R.id.movie_quality_1080_seeds,
+                        "Seeds: "+torrent.getSeeds(), ++indexOffset);
+
+                torrentDetails(linearLayout, R.id.movie_quality_1080_peers,
+                        "Peers: "+torrent.getPeers(),  ++indexOffset);
             }
 
-            if (torrent.getQuality().equals("1080p")) {
-
-                torrentDetails(view, torrent, R.id.movie_quality_1080, R.id.movie_quality_1080_size,
-                        R.id.movie_quality_1080_seeds, R.id.movie_quality_1080_peers);
-            }
 
         }
 
@@ -58,16 +82,15 @@ public class MovieFragment extends Fragment {
         return  view;
     }
 
-    private void torrentDetails(View view, Torrent torrent, int qualityResId, int sizeResId, int seedsResId, int peersResId) {
-        TextView textViewQuality = (TextView) view.findViewById(qualityResId);
-        textViewQuality.setText("Quality: " + torrent.getQuality());
-        TextView textViewSize = (TextView) view.findViewById(sizeResId);
-        textViewSize.setText("Size: " + torrent.getSize());
-        TextView textViewSeeds = (TextView) view.findViewById(seedsResId);
-        textViewSeeds.setText("Seeds: " + torrent.getSeeds());
-        TextView textViewPeers = (TextView) view.findViewById(peersResId);
-        textViewPeers.setText("Peers: " + torrent.getPeers());
-    }
+    private void torrentDetails(LinearLayout linearLayout, int resId, String msg, int offset) {
+        TextView tv = new TextView(getActivity());
+        tv.setId(resId);
+        tv.setText(msg);
+        tv.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        linearLayout.addView(tv , offset);
 
+    }
 
 }
