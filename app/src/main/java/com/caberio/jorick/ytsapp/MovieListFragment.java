@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -47,6 +48,11 @@ public class MovieListFragment extends ListFragment {
 
             TextView textView = (TextView) convertView.findViewById(R.id.textItem);
             textView.setText(movie.getTitleLong());
+
+            List<Torrent> torrents = movie.getTorrents();
+            for(int i=0; i<torrents.size(); i++){
+                Log.d("getting torrents", torrents.get(i).toString());
+            }
 
             return convertView;
 

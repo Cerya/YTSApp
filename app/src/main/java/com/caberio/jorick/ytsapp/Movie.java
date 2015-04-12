@@ -2,15 +2,16 @@ package com.caberio.jorick.ytsapp;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Movie implements Serializable{
 
     private  int id;
     private String title;
     private String titleLong;
-    private int  year;
-    private double rating;
+
     private String coverImage;
+    List<Torrent> torrents;
 
 
     public int getId() {
@@ -37,28 +38,20 @@ public class Movie implements Serializable{
         this.titleLong = titleLong;
     }
 
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
     public void setCoverimage(String coverImage){
         this.coverImage = coverImage.replace("\\","");
     }
 
     public String getCoverImage(){
         return coverImage;
+    }
+
+    public List<Torrent> getTorrents() {
+        return torrents;
+    }
+
+    public void setTorrents(List<Torrent> torrents) {
+        this.torrents = torrents;
     }
 
     @Override

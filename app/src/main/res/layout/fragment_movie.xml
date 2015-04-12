@@ -5,25 +5,67 @@
     android:orientation="vertical"
     >
     <TextView
-        android:id="@+id/movie_title"
+        android:id="@+id/movie_quality"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="?android:listSeparatorTextViewStyle"
     />
 
     <TextView
-        android:id="@+id/movie_year"
+        android:id="@+id/movie_quality_720"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-    />
+        android:layout_marginTop="8dp"
+
+        />
+    <TextView
+        android:id="@+id/movie_quality_720_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        />
+    <TextView
+        android:id="@+id/movie_quality_720_seeds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        />
 
     <TextView
-        android:id="@+id/movie_rating"
+        android:id="@+id/movie_quality_720_peers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-     />
+
+        />
+
+    <TextView
+        android:id="@+id/movie_quality_1080"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+
+        />
+    <TextView
+        android:id="@+id/movie_quality_1080_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        />
+
+    <TextView
+        android:id="@+id/movie_quality_1080_seeds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        />
+
+    <TextView
+        android:id="@+id/movie_quality_1080_peers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        />
+
     <ImageView
         android:id="@+id/movie_image"
         android:layout_width="wrap_content"

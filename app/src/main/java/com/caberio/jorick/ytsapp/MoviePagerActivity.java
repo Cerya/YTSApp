@@ -9,12 +9,11 @@ import android.view.MenuItem;
 
 public class MoviePagerActivity extends FragmentActivity {
 
-    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewPager = new ViewPager(this);
+        ViewPager mViewPager = new ViewPager(this);
         mViewPager.setId(R.id.viewPager);
         setContentView(mViewPager);
     }

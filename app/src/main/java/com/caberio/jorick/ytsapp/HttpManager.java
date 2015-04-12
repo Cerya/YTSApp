@@ -1,5 +1,7 @@
 package com.caberio.jorick.ytsapp;
 
+import android.util.Log;
+
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -41,14 +43,28 @@ public class HttpManager {
             JSONArray movies = data.getJSONArray("movies");
 
             for(int i=0; i<movies.length(); i++){
-                JSONObject movieObj = movies.getJSONObject(i);
                 Movie movie = new Movie();
+                List<Torrent> torrents = new ArrayList<>();
+                JSONObject movieObj = movies.getJSONObject(i);
+                JSONArray torrentArr = movieObj.getJSONArray("torrents");
+//                Log.d("TORRENTS", torrentArr.toString());
+                for(int j=0; j<torrentArr.length(); j++){
+                    Log.d("TORRENTS", "torrent"+j+" : "+ torrentArr.getJSONObject(j).getString("size"));
+                    Torrent torrent = new Torrent();
+                    JSONObject torrentObj = torrentArr.getJSONObject(j);
+                    torrent.setQuality(torrentObj.getString("quality"));
+                    torrent.setPeers(torrentObj.getInt("peers"));
+                    torrent.setSeeds(torrentObj.getInt("seeds"));
+                    torrent.setSize(torrentObj.getString("size"));
+                    torrents.add(torrent);
+                }
+
+
                 movie.setId(movieObj.getInt("id"));
                 movie.setTitle(movieObj.getString("title"));
                 movie.setTitleLong(movieObj.getString("title_long"));
-                movie.setYear(movieObj.getInt("year"));
-                movie.setRating(movieObj.getDouble("rating"));
                 movie.setCoverimage(movieObj.getString("medium_cover_image"));
+                movie.setTorrents(torrents);
                 movieList.add(movie);
 
             }
