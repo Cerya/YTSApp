@@ -26,6 +26,7 @@ public class MovieListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         requestData();
     }
 
