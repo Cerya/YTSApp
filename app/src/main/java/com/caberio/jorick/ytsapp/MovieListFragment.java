@@ -60,8 +60,8 @@ public class MovieListFragment extends ListFragment {
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            List<Movie> movies = HttpManager.parseMoviesFeed(s);
+        protected void onPostExecute(String json) {
+            List<Movie> movies = HttpManager.parseMoviesFeed(json);
             ArrayAdapter<Movie> movieArrayAdapter =
                     new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, movies);
             setListAdapter(movieArrayAdapter);
