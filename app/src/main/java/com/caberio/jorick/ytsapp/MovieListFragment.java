@@ -32,10 +32,8 @@ public class MovieListFragment extends ListFragment implements AbsListView.OnScr
     private static int mCurrentPage = 1;
     MovieAdapter mMovieAdapter;
     List<Movie> mMovies;
-    String TAG = "MovieListFragment";
+    String TAG = MovieListFragment.class.getSimpleName();
     ProgressBar pb;
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,8 +41,6 @@ public class MovieListFragment extends ListFragment implements AbsListView.OnScr
         mMovies = new ArrayList<>();
         requestData(mCurrentPage);
         setRetainInstance(true);
-
-
     }
 
     @Override
@@ -58,22 +54,23 @@ public class MovieListFragment extends ListFragment implements AbsListView.OnScr
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-
+        Log.d(TAG, "left unimplemented");
     }
 
     @Override
-    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        boolean loadMore = /* maybe add a padding */
-                firstVisibleItem + visibleItemCount >= totalItemCount && (totalItemCount!=0) /*& (firstVisibleItem!=0)*/;
+    public void onScroll(AbsListView view, int firstVisibleItem,
+                         int visibleItemCount, int totalItemCount) {
+        boolean loadMore = firstVisibleItem + visibleItemCount >= totalItemCount
+                           && (totalItemCount!=0);
         Log.d(TAG, "item counts before loadMore - begin");
         Log.d(TAG, "firstVisibleItem: "+firstVisibleItem);
         Log.d(TAG, "visibleItemCount: "+visibleItemCount+"");
         Log.d(TAG, "totalItemCount: "+totalItemCount+"");
         Log.d(TAG, "item counts before loadMore - end");
-        if(loadMore ) {
+        if(loadMore) {
             pb.setVisibility(View.VISIBLE);
             Log.d(TAG, "loadMore");
-          requestData(mCurrentPage);
+            requestData(mCurrentPage);
             Log.d(TAG, "item counts after loadMore - begin");
             Log.d(TAG, "firstVisibleItem: "+firstVisibleItem);
             Log.d(TAG, "visibleItemCount: "+visibleItemCount+"");
@@ -107,7 +104,7 @@ public class MovieListFragment extends ListFragment implements AbsListView.OnScr
 
             List<Torrent> torrents = movie.getTorrents();
             for(int i=0; i<torrents.size(); i++){
-                Log.d("getting torrents", torrents.get(i).toString());
+                Log.d(TAG, "getting torrents: "+torrents.get(i).toString());
             }
 
             return convertView;
@@ -156,7 +153,6 @@ public class MovieListFragment extends ListFragment implements AbsListView.OnScr
 
         @Override
         protected String doInBackground(String... strings) {
-
             String result = HttpManager.getMoviesFeed(strings[0]);
             Log.d(TAG, "result: "+result);
             return result;
@@ -167,7 +163,6 @@ public class MovieListFragment extends ListFragment implements AbsListView.OnScr
         protected void onPostExecute(String json) {
             List<Movie> tmp = HttpManager.parseMoviesFeed(json);
             Log.d(TAG, "should be 10, tmp.size: "+tmp.size());
-
             Log.d(TAG, "mMovies.size: "+mMovies.size());
             if(mMovieAdapter==null){
                 Log.d(TAG, "instantiating adapter");
@@ -180,11 +175,8 @@ public class MovieListFragment extends ListFragment implements AbsListView.OnScr
                 mMovieAdapter.addAll(tmp);
 
             }
-
             Log.d(TAG, " mMovieAdapter.getCount() : "+mMovieAdapter.getCount()+"");
             mMovieAdapter.notifyDataSetChanged();
-
-
         }
     }
 }
